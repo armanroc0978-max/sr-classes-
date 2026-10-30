@@ -1,1 +1,261 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SR CLASSES | Learn Today</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f4f4f4;color:#171717;padding-bottom:85px}
+header{background:#111;color:white;padding:22px 18px;border-radius:0 0 22px 22px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:23px;font-weight:900;letter-spacing:1px}
+.tag{font-size:11px;color:#bbb;margin-top:5px}
+.profile{background:#333;border:1px solid #555;border-radius:50%;width:40px;height:40px;color:white;font-size:17px}
+.welcome{margin-top:25px;font-size:23px;font-weight:bold}
+.sub{color:#bbb;font-size:13px;margin-top:7px}
+select{padding:11px;border-radius:10px;border:1px solid #ddd;background:white;margin-top:17px;width:100%;font-size:14px}
+main{padding:20px 16px;max-width:650px;margin:auto}
+.section{margin:23px 0 13px;display:flex;justify-content:space-between;align-items:center}
+.section h2{font-size:19px}
+.section small{color:#777}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.quick button{border:1px solid #ddd;background:white;border-radius:13px;padding:15px 3px;font-size:12px;color:#222}
+.quick span{display:block;font-size:22px;margin-bottom:8px}
+.banner{background:#171717;color:white;border-radius:17px;padding:23px;margin-top:20px}
+.banner h2{font-size:21px;line-height:1.4}
+.banner p{color:#ccc;font-size:13px;margin:9px 0 15px}
+.btn{background:white;color:#111;border:0;padding:11px 16px;border-radius:9px;font-weight:bold;cursor:pointer}
+.card{background:white;border:1px solid #e5e5e5;padding:16px;border-radius:15px;margin-bottom:12px}
+.card h3{font-size:16px;margin-bottom:7px}
+.card p{font-size:13px;color:#777;line-height:1.5}
+.pill{display:inline-block;background:#eee;padding:6px 9px;border-radius:7px;font-size:11px;margin:8px 5px 0 0}
+.card button,.action{margin-top:13px;background:#171717;color:white;border:0;border-radius:9px;padding:11px 14px;cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid .card{margin:0}
+.stat{font-size:24px;font-weight:bold;margin:7px 0}
+nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 2px calc(10px + env(safe-area-inset-bottom));z-index:10}
+nav button{border:0;background:none;color:#777;font-size:10px;cursor:pointer}
+nav span{display:block;font-size:20px;margin-bottom:4px}
+nav button.active{color:#111;font-weight:bold}
+.page{display:none}
+.page.active{display:block}
+input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin:8px 0;font:inherit}
+.answer{display:block;text-align:left;width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;background:white;border-radius:9px}
+footer{text-align:center;color:#888;font-size:11px;padding:25px}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="top">
+  <div>
+   <div class="logo">SR CLASSES.</div>
+   <div class="tag">LEARN TODAY, BUILD TOMORROW</div>
+  </div>
+  <button class="profile" onclick="go('profile')">👤</button>
+ </div>
+ <div class="welcome">Welcome to SR CLASSES</div>
+ <div class="sub">Your learning journey starts here.</div>
+ <select id="classSelect" onchange="changeClass()">
+  <option>Choose your class</option>
+  <option>Class 9</option><option>Class 10</option>
+  <option>Class 11</option>
+  <option>IIT Foundation</option>
+  <option>JEE Main</option><option>JEE Advanced</option>
+ </select>
+</header>
+
+<main>
+<section id="home" class="page active">
+ <div class="section"><h2>Quick Access</h2><small>Study tools</small></div>
+ <div class="quick">
+  <button onclick="go('courses')"><span>📚</span>Courses</button>
+  <button onclick="go('batches')"><span>🎥</span>Classes</button>
+  <button onclick="go('results')"><span>📝</span>Tests</button>
+  <button onclick="go('doubts')"><span>💬</span>Doubts</button>
+ </div>
+ <div class="banner">
+  <h2>Your Future Starts With Learning.</h2>
+  <p>Explore courses, practice questions and build your knowledge every day.</p>
+  <button class="btn" onclick="go('courses')">Explore Courses →</button>
+ </div>
+ <div class="section"><h2>Upcoming Class</h2><small>Sample schedule</small></div>
+ <div class="card">
+  <span class="pill">DEMO SCHEDULE</span>
+  <h3>📖 Mathematics — Class 11</h3>
+  <p>Topic: Introduction to Sets</p>
+  <p>Time: 5:00 PM · Sample class</p>
+  <button onclick="alert('This is a demo class preview. Live streaming is not connected yet.')">View Class</button>
+ </div>
+ <div class="section"><h2>Featured Course</h2></div>
+ <div class="card">
+  <h3>Class 11 — Complete Learning</h3>
+  <p>Physics · Chemistry · Mathematics</p>
+  <span class="pill">Bihar Board</span><span class="pill">English Medium</span>
+  <button onclick="courseDetails('Class 11')">View Course</button>
+ </div>
+</section>
+
+<section id="courses" class="page">
+ <div class="section"><h2>Explore Courses</h2></div>
+ <p style="color:#777;font-size:13px;margin-bottom:15px">Choose your learning programme.</p>
+ <div id="courseList"></div>
+</section>
+
+<section id="batches" class="page">
+ <div class="section"><h2>My Batches</h2></div>
+ <div class="card">
+  <h3>📚 Your enrolled courses</h3>
+  <p>Your demo enrolled courses will appear here.</p>
+ </div>
+ <div id="enrolled"></div>
+ <div class="card">
+  <h3>📄 Study Materials</h3>
+  <p>Notes, PDFs and practice material preview.</p>
+  <button onclick="alert('Sample notes section. PDF uploads will be added later.')">Open Notes</button>
+ </div>
+</section>
+
+<section id="results" class="page">
+ <div class="section"><h2>My Performance</h2></div>
+ <div class="grid">
+  <div class="card"><p>Sample tests</p><div class="stat">05</div></div>
+  <div class="card"><p>Average score</p><div class="stat">78%</div></div>
+ </div>
+ <div class="section"><h2>Practice Test</h2></div>
+ <div class="card">
+  <h3>Mathematics Quiz</h3>
+  <p>What is 5 × 6?</p>
+  <button class="answer" onclick="checkAnswer(this,false)">A. 25</button>
+  <button class="answer" onclick="checkAnswer(this,true)">B. 30</button>
+  <button class="answer" onclick="checkAnswer(this,false)">C. 35</button>
+  <button class="answer" onclick="checkAnswer(this,false)">D. 40</button>
+  <p id="quizResult"></p>
+ </div>
+ <div class="card">
+  <h3>Performance report</h3>
+  <p>All marks and scores shown here are sample demo data.</p>
+ </div>
+</section>
+
+<section id="profile" class="page">
+ <div class="section"><h2>My Profile</h2></div>
+ <div class="card">
+  <h3>👤 Student Profile</h3>
+  <input id="studentName" placeholder="Enter your name">
+  <select id="role">
+   <option>Student</option><option>Teacher</option>
+   <option>Parent</option><option>Guardian</option>
+  </select>
+  <button class="action" onclick="saveProfile()">Save Demo Profile</button>
+  <p id="profileMsg"></p>
+ </div>
+ <div class="card">
+  <h3>Settings</h3>
+  <p>SR CLASSES · Demo Version 1.0</p>
+  <p style="margin-top:8px">Real authentication and personal data storage are not connected.</p>
+ </div>
+</section>
+
+<section id="doubts" class="page">
+ <div class="section"><h2>Ask Your Doubt</h2></div>
+ <div class="card">
+  <h3>Write your question</h3>
+  <textarea id="doubtText" rows="5" placeholder="Type your study question here..."></textarea>
+  <button class="action" onclick="sendDoubt()">Submit Demo Question</button>
+  <p id="doubtMsg"></p>
+ </div>
+</section>
+
+<section id="assistant" class="page">
+ <div class="section"><h2>AI Study Assistant</h2></div>
+ <div class="card">
+  <h3>🤖 Your Study Helper</h3>
+  <p>This is a sample interface. AI connection will be added later.</p>
+  <input id="ask" placeholder="Ask a study question...">
+  <button class="action" onclick="alert('AI service is not connected yet. This is a demo preview.')">Ask Question</button>
+ </div>
+</section>
+
+<section id="details" class="page">
+ <div class="section"><h2 id="detailTitle">Course Details</h2></div>
+ <div class="card">
+  <p id="detailDescription"></p>
+  <h3 style="margin-top:18px">Subjects & Learning</h3>
+  <p>Video lessons · Notes · DPP · Practice tests</p>
+  <span class="pill">Sample course</span>
+  <button class="action" onclick="enroll()">Enroll in Demo Course</button>
+ </div>
+</section>
+
+<footer>© 2026 SR CLASSES · Learning Platform Demo</footer>
+</main>
+
+<nav>
+ <button class="active" data-page="home" onclick="go('home')"><span>⌂</span>Home</button>
+ <button data-page="courses" onclick="go('courses')"><span>▤</span>Courses</button>
+ <button data-page="batches" onclick="go('batches')"><span>▣</span>Batches</button>
+ <button data-page="results" onclick="go('results')"><span>▥</span>Results</button>
+ <button data-page="profile" onclick="go('profile')"><span>●</span>Profile</button>
+</nav>
+
+<script>
+const courses=[
+ ["Class 9","Bihar Board English Medium","Mathematics, Science, English"],
+ ["Class 10","Bihar Board English Medium","Mathematics, Science, English"],
+ ["Class 11","Bihar Board English Medium","Physics, Chemistry, Mathematics"],
+ ["IIT Foundation","Foundation Programme","Mathematics, Science, Logical Thinking"],
+ ["JEE Main","Engineering Entrance Preparation","Physics, Chemistry, Mathematics"],
+ ["JEE Advanced","Advanced Entrance Preparation","Advanced PCM Practice"]
+];
+let selectedCourse="Class 11";
+function go(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ window.scrollTo(0,0);
+}
+function showCourses(){
+ document.getElementById('courseList').innerHTML=courses.map(c=>`
+ <div class="card">
+ <h3>${c[0]}</h3><p>${c[1]}</p>
+ <p style="margin-top:7px">${c[2]}</p>
+ <button onclick="courseDetails('${c[0]}')">View Details →</button>
+ </div>`).join('');
+}
+function courseDetails(name){
+ selectedCourse=name;
+ document.getElementById('detailTitle').textContent=name;
+ document.getElementById('detailDescription').textContent="Explore "+name+" lessons, study materials and practice activities. This is a sample course preview.";
+ go('details');
+}
+function enroll(){
+ document.getElementById('enrolled').innerHTML+=`<div class="card"><h3>${selectedCourse}</h3><p>Demo enrollment added successfully.</p></div>`;
+ alert("Demo enrollment successful!");
+ go('batches');
+}
+function changeClass(){
+ let c=document.getElementById('classSelect').value;
+ if(c!=="Choose your class")courseDetails(c);
+}
+function checkAnswer(btn,correct){
+ document.querySelectorAll('.answer').forEach(b=>b.style.background='white');
+ btn.style.background='#e5e5e5';
+ document.getElementById('quizResult').textContent=correct?"Correct answer! Well done.":"Not quite. Try again!";
+}
+function saveProfile(){
+ let name=document.getElementById('studentName').value;
+ let role=document.getElementById('role').value;
+ document.getElementById('profileMsg').textContent="Demo profile saved for "+(name||"Student")+" ("+role+").";
+}
+function sendDoubt(){
+ let q=document.getElementById('doubtText').value;
+ document.getElementById('doubtMsg').textContent=q?"Your demo question has been noted on this screen.":"Please write a question first.";
+}
+showCourses();
+</script>
+</body>
+</html>
+
